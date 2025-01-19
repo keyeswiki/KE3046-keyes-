@@ -6,6 +6,7 @@
    README.md
    docs/产品介绍.md
    docs/主板介绍.md
+   docs/Arduino教程/install.md
    docs/Arduino教程/Arduino教程.md
    docs/FAQ.md
 

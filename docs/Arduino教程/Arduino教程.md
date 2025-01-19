@@ -113,187 +113,6 @@ F - 用于从板接收串行数据并将串行数据发送到板的串行监视
 
 找到Arduino IDE安装路径文件下的![](media/9d647086d8f00f9d902a438277695104.png)，将复制的库文件全部粘贴到这个文件夹里面。（如果找不到Arduino IDE的安装路径可以在桌面找到Arduino IDE的图标然后鼠标右击，找到“打开文件位置”单击进入即可）
 
-
-
-
-
-## KE3046安装步骤
-
-安装1
-
-安装所需零件
-
-![](media/302924e1871d7cf09a7a39fbb08887c7.png)
-
-安装完成
-
-![](media/c159b1e56b5f87466ef84bf4af2fa888.jpg)
-
-安装2
-
-安装所需零件
-
-![](media/55c54a455ef75d3160d5e44b8ea84e6a.png)
-
-安装完成
-
-![](media/41bf1abc4a673408ed3a3c85f482cbff.jpg)
-
-![](media/b07d56da79284427bd733461f172b24a.jpg)
-
-安装3
-
-安装所需零件
-
-![](media/38f9164964975a7b49c728d7259b0d6a.png)
-
-安装完成
-
-![](media/a284c0cd311437a9bcb9ab45ab769acb.jpg)
-
-安装4
-
-安装所需零件
-
-![](media/8c370cab483c732986e1dd71ddb95464.png)
-
-安装完成
-
-![](media/8c21178077bbd822b3dbe3d745b5c24e.jpg)
-
-![](media/a3996e44209f21e24776ed4c3897ea5c.png)
-
-安装5
-
-安装所需零件
-
-![](media/775e216fa39884b64a4bcd648349739f.png)
-
-安 装完成
-
-![](media/b9bdc4b2a00f11ee2769a4acc4a68b55.jpg)
-
-安装6
-
-安装所需零件
-
-![](media/57a1426dd1fc403825f09e1b87c7c719.png)
-
-安 装
-
-![](media/97a83b955edcdb522cebcb60cceb1ecf.jpg)
-
-![](media/54fca4e90adf744dd4e953341948efd4.jpg)
-
-安装7
-
-安装所需零件
-
-![](media/f65a9e6143feddeaaad1c388df094827.png)
-
-安装完成
-
-![](media/54f4c07bd277b11392505a012706cb06.jpg)
-
-![](media/830706a5707b0dfb12403f4421d528b0.jpg)
-
-安装8
-
-安装所需零件
-
-![](media/1faa01be085bad9f21ebd505fa01bc57.jpg)
-
-安装完成
-
-![](media/cc75a1872873077c3df58f5c79c6afd8.jpg)
-
-![](media/7c9a7ae8b338d59d68d8ccf37a9d15a2.jpg)
-
-安装9
-
-安装所需零件
-
-![](media/99edef7d99b61b589bb1ad2f83c05ae0.png)
-
-安装完成
-
-![](media/07f2db3c8fd0782231b87eabce59dae1.jpg)
-
-![](media/467d5293a534405264840157a53596c5.jpg)
-
-安装10
-
-安装所需零件
-
-![](media/c5f63958a8d894be6c665e6acd2d4ab3.png)
-
-安装完成
-
-![](media/5a96717e901d37c25fe8de05b3e42662.jpg)
-
-![](media/78aabc540d295728b1fe9c5eab2047a6.jpg)
-
-安装11
-
-安装所需零件
-
-![](media/421334f6656a84faed7aa649b48dc6fa.png)
-
-超声波接线
-
-![](media/948e221cc1b2d2056d25dba7b3b94a27.jpg)
-
-![](media/0ca956707863e6cf2f03c68a12d93af6.jpg)
-
-安装12
-
-准备两根缠绕管跟两根6P线材
-
-![](media/a184abd6fbe6c2b3e336be6d373e567d.jpg)
-
-完成
-
-![](media/566a74464fb4e54125f5ad89cfeb5a0d.jpg)
-
-安装13
-
-安装所需零件
-
-![](media/00a64f4065e29583aacbc5cf36758639.jpg)
-
-右侧电机接线
-
-![](media/6e87e4d8a1cf46e63ea564a120264bba.png)
-
-![](media/c4f704060311801b8b1191281b20645a.png)
-
-左侧电机接线
-
-![](media/c6c68b5d9ab25f1eb5ab7c18006a6838.png)
-
-![](media/2266f300be21265467f16e605c4801d8.png)
-
-电源接线
-
-![](media/0ec10b66f4a719e7c0920e9c2a33fbf6.png)
-
-安装蓝牙
-
-![](media/9d7d87511a8a8d3e80650a8d9ce99f95.png)
-
-安装14
-
-安装所需零件
-
-![](media/f9b7803ade387683a5e0faea2df9649a.png)
-
-安装完成
-
-![](media/9b0e4ae2608170239bc3a2030a1fb652.jpg)
-
-![](media/a4246ce93db10abe6ab6d14414d486c7.jpg)
-
-
 ## 项目课程
 
 
@@ -716,12 +535,122 @@ void loop()
 |Serial.println( );|串口打印语句，打印括号中的值或者字符|
 
 
+### 第五课 内部定时器中断测脉冲
+
+1.  项目介绍：
+
+在前面课程中，我们利用代码测试在100毫秒时间内，霍尔编码器得到的脉冲数。在这一课程中，我们利用Plus
+板自带的内部定时器（定时器2），测试在100毫秒内，霍尔编码器得到的脉冲数，我们就可以通过脉冲数目计算出具体速度。
+
+注意：一定要先添加库文件到Arduino IDE，否则会报错，教程在“02
+开发环境配置”文件中。
+
+2.  实验代码：
+
+```
+#include <MsTimer2.h>
+
+//TB6612引脚定义
+const int right_R1 = 8;
+const int right_R2 = 12;
+const int PWM_R = 10;
+const int left_L1 = 7;
+const int left_L2 = 6;
+const int PWM_L = 9;
+
+const int PinA_left = 5;        //定义检测左电机脉冲的引脚为D5
+const int PinA_right = 4;       //定义检测右电机脉冲的引脚为D4
+
+int times = 0, newtime = 0, d_time = 100; //时间，最新的时间，时间间隔
+int valA = 0, valB = 0, flagA = 0, flagB = 0; //变量valA和valB用于计算脉冲数
+
+void setup()
+{
+  Serial.begin(9600);
+
+  pinMode(right_R1, OUTPUT);    //TB6612的引脚都设置为输出
+  pinMode(right_R2, OUTPUT);
+  pinMode(PWM_R, OUTPUT);
+  pinMode(left_L1, OUTPUT);
+  pinMode(left_L2, OUTPUT);
+  pinMode(PWM_L, OUTPUT);
+
+  pinMode(PinA_left, INPUT);     //设置检测脉冲的引脚为输入状态
+  pinMode(PinA_right, INPUT);
+
+  MsTimer2::set(100, inter); // 100ms 触发一次中断
+  MsTimer2::start();    //开启中断
+}
+
+void loop()
+{
+  //两电机都正转
+  digitalWrite(right_R1, HIGH);
+  digitalWrite(right_R2, LOW);
+  digitalWrite(left_L1, HIGH);
+  digitalWrite(left_L2, LOW);
+  analogWrite(PWM_R, 100);   //写入PWM值0~255（速度）
+  analogWrite(PWM_L, 200);
+
+  if (digitalRead(PinA_left) == HIGH && flagA == 0) //计算脉冲值
+  {
+    valA++;
+    flagA = 1;
+  }
+  if (digitalRead(PinA_left) == LOW && flagA == 1)
+  {
+    valA++;
+    flagA = 0;
+  }
+
+  if (digitalRead(PinA_right) == HIGH && flagB == 0)
+  {
+    valB++;
+    flagB = 1;
+  }
+  if (digitalRead(PinA_right) == LOW && flagB == 1)
+  {
+    valB++;
+    flagB = 0;
+  }
+
+}
+
+//中断函数
+void inter()
+{
+  sei();    //允许全局中断
+  Serial.print("valA = ");     //在串口监视器上打印出脉冲值
+  Serial.println(valA);
+  Serial.print("valB = ");
+  Serial.println(valB);
+  valA = valB = 0;
+}
+```
+
+
+3.  实验结果：
+
+将平衡车全部安装成功后，上传好测试代码，USB线不拔掉，上电，扩展板上电源控制拨码开关拨至“ON”端。打开Arduino IDE
+设置波特率为9600，串口监视器显示在100毫秒时间内，霍尔编码器得到的脉冲数（对应左右两个电机），如下图。
+
+![](media/98bd155110297d8e2d24315eb70acf37.png)
+
+4.  代码说明:
 
 
 
 
 
 
+
+
+|#include <MsTimer2.h>|调用<MsTimer2.h>库文件|
+|-|-|
+|MsTimer2::set(100, inter);|100ms 触发一次中断，并进入名为inter的函数中|
+|MsTimer2::start();|开启中断|
+
+如果需要更详细的了解MsTimer2.h请参考：https://playground.arduino.cc/Main/MsTimer2/
 
 
 
@@ -877,132 +806,6 @@ APP使用方法
 |-|-|
 |Serial.read();|读取传入的串行数据。|
 |<h1 {case..}</h1>|与if语句一样，switch case通过允许程序员指定在不同条件下执行的不同代码来控制程序流。特别是，switch语句将变量的值与case语句中指定的值进行比较。当找到一个case语句，它的值与变量的值匹配时，就运行该case语句中的代码。|
-
-
-
-
-
-
-
-### 第五课 内部定时器中断测脉冲
-
-1.  项目介绍：
-
-在前面课程中，我们利用代码测试在100毫秒时间内，霍尔编码器得到的脉冲数。在这一课程中，我们利用Plus
-板自带的内部定时器（定时器2），测试在100毫秒内，霍尔编码器得到的脉冲数，我们就可以通过脉冲数目计算出具体速度。
-
-注意：一定要先添加库文件到Arduino IDE，否则会报错，教程在“02
-开发环境配置”文件中。
-
-2.  实验代码：
-
-```
-#include <MsTimer2.h>
-
-//TB6612引脚定义
-const int right_R1 = 8;
-const int right_R2 = 12;
-const int PWM_R = 10;
-const int left_L1 = 7;
-const int left_L2 = 6;
-const int PWM_L = 9;
-
-const int PinA_left = 5;        //定义检测左电机脉冲的引脚为D5
-const int PinA_right = 4;       //定义检测右电机脉冲的引脚为D4
-
-int times = 0, newtime = 0, d_time = 100; //时间，最新的时间，时间间隔
-int valA = 0, valB = 0, flagA = 0, flagB = 0; //变量valA和valB用于计算脉冲数
-
-void setup()
-{
-  Serial.begin(9600);
-
-  pinMode(right_R1, OUTPUT);    //TB6612的引脚都设置为输出
-  pinMode(right_R2, OUTPUT);
-  pinMode(PWM_R, OUTPUT);
-  pinMode(left_L1, OUTPUT);
-  pinMode(left_L2, OUTPUT);
-  pinMode(PWM_L, OUTPUT);
-
-  pinMode(PinA_left, INPUT);     //设置检测脉冲的引脚为输入状态
-  pinMode(PinA_right, INPUT);
-
-  MsTimer2::set(100, inter); // 100ms 触发一次中断
-  MsTimer2::start();    //开启中断
-}
-
-void loop()
-{
-  //两电机都正转
-  digitalWrite(right_R1, HIGH);
-  digitalWrite(right_R2, LOW);
-  digitalWrite(left_L1, HIGH);
-  digitalWrite(left_L2, LOW);
-  analogWrite(PWM_R, 100);   //写入PWM值0~255（速度）
-  analogWrite(PWM_L, 200);
-
-  if (digitalRead(PinA_left) == HIGH && flagA == 0) //计算脉冲值
-  {
-    valA++;
-    flagA = 1;
-  }
-  if (digitalRead(PinA_left) == LOW && flagA == 1)
-  {
-    valA++;
-    flagA = 0;
-  }
-
-  if (digitalRead(PinA_right) == HIGH && flagB == 0)
-  {
-    valB++;
-    flagB = 1;
-  }
-  if (digitalRead(PinA_right) == LOW && flagB == 1)
-  {
-    valB++;
-    flagB = 0;
-  }
-
-}
-
-//中断函数
-void inter()
-{
-  sei();    //允许全局中断
-  Serial.print("valA = ");     //在串口监视器上打印出脉冲值
-  Serial.println(valA);
-  Serial.print("valB = ");
-  Serial.println(valB);
-  valA = valB = 0;
-}
-```
-
-
-3.  实验结果：
-
-将平衡车全部安装成功后，上传好测试代码，USB线不拔掉，上电，扩展板上电源控制拨码开关拨至“ON”端。打开Arduino IDE
-设置波特率为9600，串口监视器显示在100毫秒时间内，霍尔编码器得到的脉冲数（对应左右两个电机），如下图。
-
-![](media/98bd155110297d8e2d24315eb70acf37.png)
-
-4.  代码说明:
-
-
-
-
-
-
-
-
-|#include <MsTimer2.h>|调用<MsTimer2.h>库文件|
-|-|-|
-|MsTimer2::set(100, inter);|100ms 触发一次中断，并进入名为inter的函数中|
-|MsTimer2::start();|开启中断|
-
-如果需要更详细的了解MsTimer2.h请参考：https://playground.arduino.cc/Main/MsTimer2/
-
-
-
 
 
 
