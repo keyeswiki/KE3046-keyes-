@@ -1,6 +1,6 @@
 
 .. toctree::
-   :maxdepth: 4
+   :maxdepth: 3
    :caption: KE3046 keyes 平衡车套件
 
    README.md
