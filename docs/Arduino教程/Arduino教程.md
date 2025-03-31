@@ -826,95 +826,94 @@ APP使用方法
 ```
 #include <Wire.h>
  
-long accelX, accelY, accelZ;      // 定义为全局变量，可直接在函数内部使用
-float gForceX, gForceY, gForceZ;
+long accelX, accelY, accelZ;      // 存储加速度计原始数据（X/Y/Z轴）
+float gForceX, gForceY, gForceZ;  // 存储转换后的加速度值（单位：g）
  
-long gyroX, gyroY, gyroZ;
-float rotX, rotY, rotZ;
+long gyroX, gyroY, gyroZ;         // 存储陀螺仪原始数据（X/Y/Z轴）
+float rotX, rotY, rotZ;           // 存储转换后的角速度值（单位：度/秒）
  
 void setup() {
-  Serial.begin(9600);
-  Wire.begin();
-  setupMPU();
+  Serial.begin(9600);             // 初始化串口通信，波特率9600
+  Wire.begin();                   // 初始化I2C通信
+  setupMPU();                     // 配置MPU6050传感器
 }
  
 void loop() {
-  recordAccelRegisters();
-  recordGyroRegisters();
-  printData();
-  delay(100);
+  recordAccelRegisters();         // 读取加速度计数据
+  recordGyroRegisters();          // 读取陀螺仪数据
+  printData();                    // 打印数据到串口
+  delay(100);                     // 延迟100ms
 }
  
 void setupMPU(){
-  // REGISTER 0x6B/REGISTER 107:Power Management 1
-  Wire.beginTransmission(0b1101000); //This is the I2C address of the MPU (b1101000/b1101001 for AC0 low/high datasheet Sec. 9.2)
-  Wire.write(0x6B); //Accessing the register 6B/107 - Power Management (Sec. 4.30) 
-  Wire.write(0b00000000); //Setting SLEEP register to 0, using the internal 8 Mhz oscillator
+  // 寄存器0x6B/107：电源管理1
+  Wire.beginTransmission(0b1101000); // MPU的I2C地址（AC0低电平时为0b1101000，见数据手册第9.2节）
+  Wire.write(0x6B);                 // 访问寄存器6B/107 - 电源管理（见第4.30节）
+  Wire.write(0b00000000);           // 将SLEEP寄存器设为0，使用内部8MHz振荡器
   Wire.endTransmission();
  
-  // REGISTER 0x1b/REGISTER 27:Gyroscope Configuration
-  Wire.beginTransmission(0b1101000); //I2C address of the MPU
-  Wire.write(0x1B); //Accessing the register 1B - Gyroscope Configuration (Sec. 4.4) 
-  Wire.write(0x00000000); //Setting the gyro to full scale +/- 250deg./s (转化为rpm:250/360 * 60 = 41.67rpm) 最高可以转化为2000deg./s 
+  // 寄存器0x1B/27：陀螺仪配置
+  Wire.beginTransmission(0b1101000); // MPU的I2C地址
+  Wire.write(0x1B);                 // 访问寄存器1B - 陀螺仪配置（见第4.4节）
+  Wire.write(0x00000000);           // 设置陀螺仪量程为±250度/秒（转换为rpm：250/360 * 60 = 41.67rpm）最高支持±2000度/秒
   Wire.endTransmission();
   
-  // REGISTER 0x1C/REGISTER 28:ACCELEROMETER CONFIGURATION
-  Wire.beginTransmission(0b1101000); //I2C address of the MPU
-  Wire.write(0x1C); //Accessing the register 1C - Acccelerometer Configuration (Sec. 4.5) 
-  Wire.write(0b00000000); //Setting the accel to +/- 2g（if choose +/- 16g，the value would be 0b00011000）
+  // 寄存器0x1C/28：加速度计配置
+  Wire.beginTransmission(0b1101000); // MPU的I2C地址
+  Wire.write(0x1C);                 // 访问寄存器1C - 加速度计配置（见第4.5节）
+  Wire.write(0b00000000);           // 设置加速度计量程为±2g（若选择±16g，值应为0b00011000）
   Wire.endTransmission(); 
 }
  
 void recordAccelRegisters() {
-  // REGISTER 0x3B~0x40/REGISTER 59~64
-  Wire.beginTransmission(0b1101000); //I2C address of the MPU
-  Wire.write(0x3B); //Starting register for Accel Readings
+  // 寄存器0x3B~0x40/59~64
+  Wire.beginTransmission(0b1101000); // MPU的I2C地址
+  Wire.write(0x3B);                 // 加速度计数据的起始寄存器
   Wire.endTransmission();
-  Wire.requestFrom(0b1101000,6); //Request Accel Registers (3B - 40)
+  Wire.requestFrom(0b1101000,6);    // 请求加速度计寄存器数据（3B - 40）
  
-  // 使用了左移<<和位运算|。Wire.read()一次读取1bytes，并在下一次调用时自动读取下一个地址的数据
-  while(Wire.available() < 6);  // Waiting for all the 6 bytes data to be sent from the slave machine （必须等待所有数据存储到缓冲区后才能读取） 
-  accelX = Wire.read()<<8|Wire.read(); //Store first two bytes into accelX （自动存储为定义的long型值）
-  accelY = Wire.read()<<8|Wire.read(); //Store middle two bytes into accelY
-  accelZ = Wire.read()<<8|Wire.read(); //Store last two bytes into accelZ
+  // 使用左移<<和位运算|。Wire.read()每次读取1字节，并自动递增地址
+  while(Wire.available() < 6);      // 等待从机发送完整的6字节数据（必须等待所有数据进入缓冲区）
+  accelX = Wire.read()<<8|Wire.read(); // 将前两个字节存入accelX（自动转换为long型）
+  accelY = Wire.read()<<8|Wire.read(); // 中间两个字节存入accelY
+  accelZ = Wire.read()<<8|Wire.read(); // 最后两个字节存入accelZ
   processAccelData();
 }
  
 void processAccelData(){
-  gForceX = accelX / 16384.0;     //float = long / float
+  gForceX = accelX / 16384.0;       // 转换为g值（float = long / float）
   gForceY = accelY / 16384.0; 
   gForceZ = accelZ / 16384.0;
 }
  
-void recordGyroRegisters() 
-{
-  // REGISTER 0x43~0x48/REGISTER 67~72
-  Wire.beginTransmission(0b1101000); //I2C address of the MPU
-  Wire.write(0x43); //Starting register for Gyro Readings
+void recordGyroRegisters() {
+  // 寄存器0x43~0x48/67~72
+  Wire.beginTransmission(0b1101000); // MPU的I2C地址
+  Wire.write(0x43);                 // 陀螺仪数据的起始寄存器
   Wire.endTransmission();
-  Wire.requestFrom(0b1101000,6); //Request Gyro Registers (43 ~ 48)
+  Wire.requestFrom(0b1101000,6);    // 请求陀螺仪寄存器数据（43 ~ 48）
   while(Wire.available() < 6);
-  gyroX = Wire.read()<<8|Wire.read(); //Store first two bytes into accelX
-  gyroY = Wire.read()<<8|Wire.read(); //Store middle two bytes into accelY
-  gyroZ = Wire.read()<<8|Wire.read(); //Store last two bytes into accelZ
+  gyroX = Wire.read()<<8|Wire.read(); // 前两个字节存入gyroX
+  gyroY = Wire.read()<<8|Wire.read(); // 中间两个字节存入gyroY
+  gyroZ = Wire.read()<<8|Wire.read(); // 最后两个字节存入gyroZ
   processGyroData();
 }
  
 void processGyroData() {
-  rotX = gyroX / 131.0;
+  rotX = gyroX / 131.0;            // 转换为度/秒
   rotY = gyroY / 131.0; 
   rotZ = gyroZ / 131.0;
 }
  
 void printData() {
-  Serial.print("Gyro (deg)");
+  Serial.print("Gyro (deg)");       // 打印陀螺仪数据（单位：度）
   Serial.print(" X=");
   Serial.print(rotX);
   Serial.print(" Y=");
   Serial.print(rotY);
   Serial.print(" Z=");
   Serial.print(rotZ);
-  Serial.print(" Accel (g)");
+  Serial.print(" Accel (g)");       // 打印加速度计数据（单位：g）
   Serial.print(" X=");
   Serial.print(gForceX);
   Serial.print(" Y=");
